@@ -1,20 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TrophyIcon,
   MedalIcon,
-  RocketIcon,
-  PatentIcon,
-  EducationIcon,
   StarIcon,
   ClipboardIcon,
   ShieldCheckIcon,
   SparklesIcon,
-  FileTextIcon,
-  ArrowRightIcon,
-  CheckCircleIcon,
 } from "../components/Icons";
 
 /* ─── Inline Special Icons ─── */
@@ -47,30 +41,44 @@ function PlayCircleIcon({ size = 20, color = "currentColor" }: { size?: number; 
   );
 }
 
-export default function AchievementsPage() {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const conclaveImages = [
-    { src: "/asper-exposure-1.jpeg", caption: "CSIR Conclave Presentation" },
-    { src: "/asper-exposure-2.jpeg", caption: "Live Hardware Demonstration" },
-    { src: "/asper-exposure-3.jpeg", caption: "Scientific Panel Discussion" },
-  ];
+function ZoomInIcon({ size = 16, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      <line x1="11" y1="8" x2="11" y2="14" />
+      <line x1="8" y1="11" x2="14" y2="11" />
+    </svg>
+  );
+}
 
-  const alumnis = [
-    {
-      name: "Rishab Sen",
-      role: "Former Intern — Now at ISRO",
-      note: "Contributed to the ARGUS Drone flight stabilization and autonomous path planning subsystem.",
-    },
-    {
-      name: "Priya Mukherjee",
-      role: "Former Intern — Now at TCS Research",
-      note: "Built foundational machine learning algorithms for real-time electrical grid anomaly detection.",
-    },
-    {
-      name: "Sourav Das",
-      role: "Former Contributor — Now at Wipro Robotics",
-      note: "Engineered the mechanical chassis and UV dispersion unit for ASPER CleanBot prototype.",
-    },
+function CloseIcon({ size = 24, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
+
+export default function AchievementsPage() {
+  const [selectedImage, setSelectedImage] = useState<{ src: string; caption: string } | null>(null);
+
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const conclaveImages = [
+    { src: "/asper-exposure-1.jpeg", caption: "CSIR Conclave Presentation — Prototype Demonstration" },
+    { src: "/asper-exposure-2.jpeg", caption: "Live Hardware Demonstration to Industry Experts" },
+    { src: "/asper-exposure-3.jpeg", caption: "Scientific Panel & Technical Discussion" },
   ];
 
   const reviews = [
@@ -123,6 +131,113 @@ export default function AchievementsPage() {
 
   return (
     <div style={{ minHeight: "80vh", width: "100%" }}>
+      {/* ═══ Image Expansion Lightbox Modal ═══ */}
+      {selectedImage && (
+        <div
+          onClick={() => setSelectedImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(10, 26, 47, 0.88)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            animation: "fadeIn 0.25s ease-out",
+          }}
+        >
+          {/* Modal Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              maxWidth: "92vw",
+              maxHeight: "88vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              background: "var(--surface)",
+              border: "2px solid var(--foreground)",
+              borderRadius: "16px",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+              overflow: "hidden",
+            }}
+          >
+            {/* Top Bar with Title and Close Button */}
+            <div
+              style={{
+                width: "100%",
+                padding: "12px 20px",
+                background: "var(--surface-alt)",
+                borderBottom: "1.5px solid var(--border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 16,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.92rem",
+                  fontWeight: 700,
+                  color: "var(--foreground)",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                }}
+              >
+                {selectedImage.caption}
+              </span>
+              <button
+                onClick={() => setSelectedImage(null)}
+                aria-label="Close modal"
+                style={{
+                  background: "var(--surface)",
+                  border: "1.5px solid var(--foreground)",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  padding: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--foreground)",
+                  transition: "var(--transition)",
+                }}
+              >
+                <CloseIcon size={20} />
+              </button>
+            </div>
+
+            {/* Expanded Image Container */}
+            <div
+              style={{
+                position: "relative",
+                width: "min(86vw, 900px)",
+                height: "min(74vh, 650px)",
+                background: "#000000",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.caption}
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="90vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ═══ Hero ═══ */}
       <section
         className="dot-pattern hero-section"
@@ -163,7 +278,7 @@ export default function AchievementsPage() {
       </section>
 
       <section className="section-wrapper" style={{ paddingTop: 10 }}>
-        {/* ═══ Top Key Milestones Showcase ═══ */}
+        {/* ═══ Major Honors Showcase ═══ */}
         <div style={{ marginBottom: 64 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
             <div
@@ -187,7 +302,7 @@ export default function AchievementsPage() {
                 Major Honors &amp; Competitive Victories
               </h2>
               <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: 2 }}>
-                Key recognitions won on global and national stages
+                Key recognitions won on global and national stages (Click any photo to expand)
               </p>
             </div>
           </div>
@@ -261,7 +376,7 @@ export default function AchievementsPage() {
                     gap: 20,
                   }}
                 >
-                  {/* Video Player */}
+                  {/* Video Player (Muted by default) */}
                   <div
                     style={{
                       borderRadius: 12,
@@ -292,6 +407,7 @@ export default function AchievementsPage() {
                     </div>
                     <video
                       controls
+                      muted
                       playsInline
                       preload="metadata"
                       style={{
@@ -306,8 +422,14 @@ export default function AchievementsPage() {
                     </video>
                   </div>
 
-                  {/* Trophy Photo */}
+                  {/* Trophy Photo (Clickable to Expand) */}
                   <div
+                    onClick={() =>
+                      setSelectedImage({
+                        src: "/bengal-e-summit-trophy.jpeg",
+                        caption: "1st Prize Trophy — Bengal E-Summit 2026 (Awarded to AsPER)",
+                      })
+                    }
                     style={{
                       borderRadius: 12,
                       overflow: "hidden",
@@ -316,7 +438,11 @@ export default function AchievementsPage() {
                       background: "var(--surface-alt)",
                       display: "flex",
                       flexDirection: "column",
+                      cursor: "pointer",
+                      position: "relative",
+                      transition: "var(--transition)",
                     }}
+                    className="clickable-photo"
                   >
                     <div
                       style={{
@@ -327,12 +453,17 @@ export default function AchievementsPage() {
                         fontWeight: 600,
                         display: "flex",
                         alignItems: "center",
-                        gap: 8,
+                        justifyContent: "space-between",
                         fontFamily: "'Space Grotesk', sans-serif",
                       }}
                     >
-                      <TrophyIcon size={16} color="#f59e0b" />
-                      <span>Official Trophy &amp; Accolade</span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <TrophyIcon size={16} color="#f59e0b" />
+                        <span>Official Trophy &amp; Accolade</span>
+                      </div>
+                      <span style={{ fontSize: "0.72rem", color: "#f59e0b", display: "flex", alignItems: "center", gap: 4 }}>
+                        <ZoomInIcon size={13} /> Click to expand
+                      </span>
                     </div>
                     <div style={{ position: "relative", width: "100%", height: 280 }}>
                       <Image
@@ -465,7 +596,7 @@ export default function AchievementsPage() {
                 </div>
               </div>
 
-              {/* MAKAUT & Bhartiya Bhasha Samiti Card */}
+              {/* MAKAUT & Bhartiya Bhasha Samiti Card (Clickable to Expand) */}
               <div
                 className="card-brutal animate-fade-in-up delay-200"
                 style={{
@@ -511,6 +642,12 @@ export default function AchievementsPage() {
 
                   {/* Attached MAKAUT image */}
                   <div
+                    onClick={() =>
+                      setSelectedImage({
+                        src: "/makaut.jpeg",
+                        caption: "ARGUS Recognition — Bhartiya Bhasha Samiti & MAKAUT Board 3rd Position",
+                      })
+                    }
                     style={{
                       borderRadius: 12,
                       overflow: "hidden",
@@ -521,7 +658,9 @@ export default function AchievementsPage() {
                       height: 200,
                       marginTop: "auto",
                       background: "var(--surface-alt)",
+                      cursor: "pointer",
                     }}
+                    className="clickable-photo"
                   >
                     <Image
                       src="/makaut.jpeg"
@@ -530,12 +669,31 @@ export default function AchievementsPage() {
                       style={{ objectFit: "cover" }}
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: 8,
+                        right: 8,
+                        background: "rgba(10, 26, 47, 0.85)",
+                        color: "white",
+                        padding: "4px 8px",
+                        borderRadius: 6,
+                        fontSize: "0.7rem",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 4,
+                        backdropFilter: "blur(4px)",
+                      }}
+                    >
+                      <ZoomInIcon size={12} /> Expand
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 4. Bengal Rise Conclave in CSIR Gallery */}
+            {/* 4. Bengal Rise Conclave in CSIR Gallery (Clickable to Expand) */}
             <div
               className="card-brutal animate-fade-in-up delay-300"
               style={{
@@ -595,7 +753,7 @@ export default function AchievementsPage() {
                   <strong>AsPER</strong> marked its milestone debut scientific demonstration at the <strong>BENGAL RISE CONCLAVE</strong> hosted at <strong>CSIR</strong>. Our team presented working prototypes directly to premier industrial scientists, academic researchers, and innovation directors.
                 </p>
 
-                {/* 3-Image Showcase */}
+                {/* 3-Image Showcase (Clickable to Expand) */}
                 <div
                   style={{
                     display: "grid",
@@ -606,6 +764,12 @@ export default function AchievementsPage() {
                   {conclaveImages.map((img, idx) => (
                     <div
                       key={idx}
+                      onClick={() =>
+                        setSelectedImage({
+                          src: img.src,
+                          caption: `Bengal Rise Conclave at CSIR: ${img.caption}`,
+                        })
+                      }
                       style={{
                         borderRadius: 12,
                         overflow: "hidden",
@@ -614,7 +778,10 @@ export default function AchievementsPage() {
                         background: "var(--surface-alt)",
                         display: "flex",
                         flexDirection: "column",
+                        cursor: "pointer",
+                        transition: "var(--transition)",
                       }}
+                      className="clickable-photo"
                     >
                       <div
                         style={{
@@ -630,6 +797,25 @@ export default function AchievementsPage() {
                           style={{ objectFit: "cover" }}
                           sizes="(max-width: 768px) 100vw, 300px"
                         />
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: 8,
+                            right: 8,
+                            background: "rgba(10, 26, 47, 0.8)",
+                            color: "white",
+                            padding: "3px 8px",
+                            borderRadius: 6,
+                            fontSize: "0.68rem",
+                            fontWeight: 600,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 4,
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          <ZoomInIcon size={12} /> Expand
+                        </div>
                       </div>
                       <div
                         style={{
@@ -663,94 +849,7 @@ export default function AchievementsPage() {
           </div>
         </div>
 
-        {/* ═══ Section 2: Notable Alumni ═══ */}
-        <div style={{ marginBottom: 56 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 10,
-                background: "var(--accent)",
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "2px solid var(--foreground)",
-                boxShadow: "var(--shadow-brutal-sm)",
-              }}
-            >
-              <EducationIcon size={20} color="#ffffff" />
-            </div>
-            <h2 style={{ fontSize: "clamp(1.25rem, 3.5vw, 1.6rem)", fontWeight: 700 }}>
-              Notable Alumni &amp; Contributors
-            </h2>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
-              gap: 20,
-            }}
-          >
-            {alumnis.map((a, i) => (
-              <div
-                key={a.name}
-                className={`card-brutal animate-fade-in-up delay-${(i + 1) * 100}`}
-                style={{ padding: "22px 24px" }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 12,
-                      background: "var(--accent)",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontWeight: 700,
-                      fontSize: "0.9rem",
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      border: "2px solid var(--foreground)",
-                    }}
-                  >
-                    {a.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: "1.05rem", fontWeight: 700 }}>{a.name}</h4>
-                    <p
-                      style={{
-                        fontSize: "0.8rem",
-                        color: "var(--primary)",
-                        fontWeight: 600,
-                        fontFamily: "'Space Grotesk', sans-serif",
-                      }}
-                    >
-                      {a.role}
-                    </p>
-                  </div>
-                </div>
-                <p
-                  style={{
-                    fontSize: "0.86rem",
-                    color: "var(--text-secondary)",
-                    lineHeight: 1.65,
-                  }}
-                >
-                  {a.note}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ═══ Section 3: Reviews & Endorsements ═══ */}
+        {/* ═══ Section 2: Reviews & Endorsements ═══ */}
         <div style={{ marginBottom: 56 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div
@@ -821,7 +920,7 @@ export default function AchievementsPage() {
           </div>
         </div>
 
-        {/* ═══ Section 4: Contracts & Pilots ═══ */}
+        {/* ═══ Section 3: Contracts & Pilots ═══ */}
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div
@@ -903,6 +1002,14 @@ export default function AchievementsPage() {
           </div>
         </div>
       </section>
+
+      {/* Global styles for clickable photo hover effect */}
+      <style jsx global>{`
+        .clickable-photo:hover {
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-brutal-hover) !important;
+        }
+      `}</style>
     </div>
   );
 }
