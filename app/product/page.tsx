@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   IndiaFlagIcon,
   BoltIcon,
@@ -19,6 +19,26 @@ import {
   BuildingIcon,
   SparklesIcon,
 } from "../components/Icons";
+
+function ZoomInIcon({ size = 16, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      <line x1="11" y1="8" x2="11" y2="14" />
+      <line x1="8" y1="11" x2="14" y2="11" />
+    </svg>
+  );
+}
+
+function CloseIcon({ size = 24, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
 
 type SeriesKey = "argus" | "asper";
 
@@ -104,12 +124,131 @@ const productData: Record<
 export default function ProductPage() {
   const [selectedSeries, setSelectedSeries] = useState<SeriesKey | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [expandedImage, setExpandedImage] = useState<{ src: string; caption: string } | null>(null);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setExpandedImage(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const series = selectedSeries ? productData[selectedSeries] : null;
   const product = series?.products.find((p) => p.name === selectedProduct);
 
   return (
     <div style={{ minHeight: "80vh", width: "100%" }}>
+      {/* ═══ Image Expansion Lightbox Modal ═══ */}
+      {expandedImage && (
+        <div
+          onClick={() => setExpandedImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(10, 26, 47, 0.88)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            animation: "fadeIn 0.25s ease-out",
+          }}
+        >
+          {/* Modal Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              maxWidth: "92vw",
+              maxHeight: "88vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              background: "var(--surface)",
+              border: "2px solid var(--foreground)",
+              borderRadius: "16px",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+              overflow: "hidden",
+            }}
+          >
+            {/* Top Bar with Caption & Close Button */}
+            <div
+              style={{
+                width: "100%",
+                padding: "12px 20px",
+                background: "var(--surface-alt)",
+                borderBottom: "1.5px solid var(--border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 16,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
+                  color: "var(--foreground)",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                }}
+              >
+                {expandedImage.caption}
+              </span>
+              <button
+                onClick={() => setExpandedImage(null)}
+                aria-label="Close image preview"
+                style={{
+                  background: "var(--surface)",
+                  border: "1.5px solid var(--foreground)",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  padding: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--foreground)",
+                  transition: "var(--transition)",
+                }}
+              >
+                <CloseIcon size={20} />
+              </button>
+            </div>
+
+            {/* Expanded Image Content */}
+            <div
+              style={{
+                position: "relative",
+                width: "min(88vw, 920px)",
+                height: "min(76vh, 680px)",
+                background: "#000000",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src={expandedImage.src}
+                alt={expandedImage.caption}
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="90vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section
         className="dot-pattern hero-section"
@@ -274,166 +413,205 @@ export default function ProductPage() {
       {/* Other Products Section — shown on main products page only */}
       {!selectedSeries && (
         <section className="section-wrapper" style={{ paddingTop: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 10,
-                background: "var(--accent)",
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "2px solid var(--foreground)",
-                boxShadow: "var(--shadow-brutal-sm)",
-              }}
-            >
-              <SparklesIcon size={20} color="#ffffff" />
-            </div>
-            <div>
-              <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 1.75rem)", fontWeight: 700, lineHeight: 1.2 }}>
-                Other Products
-              </h2>
-              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: 2 }}>
-                Standalone innovations beyond the ARGUS &amp; ASPER series
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="card-brutal animate-fade-in-up delay-200"
-            style={{
-              padding: 0,
-              overflow: "hidden",
-              maxWidth: 900,
-            }}
-          >
-            <div style={{ height: 5, background: "linear-gradient(90deg, #7c3aed, #1a5fa8, #0e7c6b)" }} />
-            <div
-              style={{
-                display: "flex",
-                gap: 0,
-                flexWrap: "wrap",
-              }}
-            >
-              {/* Radio Station Image */}
+          <div style={{ maxWidth: 960, margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
               <div
                 style={{
-                  position: "relative",
-                  width: "100%",
-                  maxWidth: 360,
-                  minHeight: 280,
-                  flex: "1 1 300px",
-                  background: "var(--surface-alt)",
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  background: "var(--accent)",
+                  color: "white",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px solid var(--foreground)",
+                  boxShadow: "var(--shadow-brutal-sm)",
                 }}
               >
-                <Image
-                  src="/radio-station.jpeg"
-                  alt="IQ & INNOVATION Radio Station"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 768px) 100vw, 360px"
-                />
-                <span
+                <SparklesIcon size={20} color="#ffffff" />
+              </div>
+              <div>
+                <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 1.75rem)", fontWeight: 700, lineHeight: 1.2 }}>
+                  Other Products
+                </h2>
+                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                  Standalone innovations beyond the ARGUS &amp; ASPER series
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="card-brutal animate-fade-in-up delay-200"
+              style={{
+                padding: 0,
+                overflow: "hidden",
+                width: "100%",
+              }}
+            >
+              <div style={{ height: 5, background: "linear-gradient(90deg, #7c3aed, #1a5fa8, #0e7c6b)" }} />
+              <div
+                style={{
+                  display: "flex",
+                  gap: 0,
+                  flexWrap: "wrap",
+                }}
+              >
+                {/* Radio Station Image with Click to Expand */}
+                <div
+                  onClick={() =>
+                    setExpandedImage({
+                      src: "/radio-station.jpeg",
+                      caption: "Radio Station — Community Broadcasting System",
+                    })
+                  }
+                  title="Click to view full image"
+                  className="clickable-photo"
                   style={{
-                    position: "absolute",
-                    top: 14,
-                    left: 14,
-                    background: "#7c3aed",
-                    color: "white",
-                    padding: "5px 12px",
-                    borderRadius: 8,
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    letterSpacing: "0.04em",
-                    border: "1.5px solid var(--foreground)",
-                    boxShadow: "2px 2px 0px var(--foreground)",
+                    position: "relative",
+                    width: "100%",
+                    maxWidth: 380,
+                    minHeight: 320,
+                    flex: "1 1 320px",
+                    background: "var(--surface-alt)",
+                    cursor: "pointer",
+                    overflow: "hidden",
                   }}
                 >
-                  STANDALONE PRODUCT
-                </span>
-              </div>
+                  <Image
+                    src="/radio-station.jpeg"
+                    alt="Radio Station"
+                    fill
+                    style={{ objectFit: "cover", transition: "transform 0.35s ease" }}
+                    sizes="(max-width: 768px) 100vw, 380px"
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: 14,
+                      left: 14,
+                      background: "#7c3aed",
+                      color: "white",
+                      padding: "5px 12px",
+                      borderRadius: 8,
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      letterSpacing: "0.04em",
+                      border: "1.5px solid var(--foreground)",
+                      boxShadow: "2px 2px 0px var(--foreground)",
+                      zIndex: 2,
+                    }}
+                  >
+                    STANDALONE PRODUCT
+                  </span>
 
-              {/* Radio Station Details */}
-              <div style={{ flex: "1 1 320px", padding: "28px 26px", display: "flex", flexDirection: "column" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <div className="badge" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>
-                    <IndiaFlagIcon size={14} />
-                    <span>Make in India</span>
+                  {/* Click to Expand pill indicator */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 12,
+                      right: 12,
+                      background: "rgba(10, 26, 47, 0.85)",
+                      backdropFilter: "blur(6px)",
+                      color: "#ffffff",
+                      padding: "6px 12px",
+                      borderRadius: 20,
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      border: "1px solid rgba(255,255,255,0.25)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                      zIndex: 2,
+                    }}
+                  >
+                    <ZoomInIcon size={14} color="#ffffff" />
+                    <span>Click to Expand</span>
                   </div>
                 </div>
 
-                <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 6 }}>
-                  IQ Radio Station
-                </h3>
-                <p
-                  style={{
-                    color: "var(--primary)",
-                    fontWeight: 600,
-                    fontSize: "0.85rem",
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    marginBottom: 14,
-                  }}
-                >
-                  Low-Cost Community Broadcasting System
-                </p>
-
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.7,
-                    marginBottom: 20,
-                  }}
-                >
-                  A fully indigenous, low-cost FM radio station designed and built in-house by the IQ &amp; INNOVATION team. Engineered for community broadcasting, local emergency alerts, educational programming, and rural connectivity — bridging the digital divide with analog reliability.
-                </p>
-
-                {/* Key Features */}
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-                    gap: 8,
-                    marginBottom: 22,
-                  }}
-                >
-                  {[
-                    "Custom RF Transmitter",
-                    "Software-Defined Audio",
-                    "Low Power Consumption",
-                    "Portable & Modular",
-                    "Community Ready",
-                    "Built From Scratch",
-                  ].map((feat) => (
-                    <div
-                      key={feat}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                        fontSize: "0.8rem",
-                        fontWeight: 600,
-                        color: "var(--text-secondary)",
-                        fontFamily: "'Space Grotesk', sans-serif",
-                      }}
-                    >
-                      <ShieldCheckIcon size={14} color="var(--primary)" />
-                      {feat}
+                {/* Radio Station Details */}
+                <div style={{ flex: "1 1 320px", padding: "28px 26px", display: "flex", flexDirection: "column" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                    <div className="badge" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>
+                      <IndiaFlagIcon size={14} />
+                      <span>Make in India</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <Link
-                  href="/contact"
-                  className="btn-primary"
-                  style={{ alignSelf: "flex-start", padding: "10px 22px", fontSize: "0.88rem" }}
-                >
-                  <span>Enquire About This Product</span>
-                  <ArrowRightIcon size={16} color="#ffffff" />
-                </Link>
+                  <h3 style={{ fontSize: "1.45rem", fontWeight: 700, marginBottom: 6 }}>
+                    Radio Station
+                  </h3>
+                  <p
+                    style={{
+                      color: "var(--primary)",
+                      fontWeight: 600,
+                      fontSize: "0.85rem",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      marginBottom: 14,
+                    }}
+                  >
+                    Low-Cost Community Broadcasting System
+                  </p>
+
+                  <p
+                    style={{
+                      color: "var(--text-secondary)",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.7,
+                      marginBottom: 20,
+                    }}
+                  >
+                    A fully indigenous, low-cost FM radio station designed and built in-house by the IQ &amp; INNOVATION team. Engineered for community broadcasting, local emergency alerts, educational programming, and rural connectivity — bridging the digital divide with analog reliability.
+                  </p>
+
+                  {/* Key Features */}
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                      gap: 8,
+                      marginBottom: 22,
+                    }}
+                  >
+                    {[
+                      "Custom RF Transmitter",
+                      "Software-Defined Audio",
+                      "Low Power Consumption",
+                      "Portable & Modular",
+                      "Community Ready",
+                      "Built From Scratch",
+                    ].map((feat) => (
+                      <div
+                        key={feat}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 6,
+                          fontSize: "0.8rem",
+                          fontWeight: 600,
+                          color: "var(--text-secondary)",
+                          fontFamily: "'Space Grotesk', sans-serif",
+                        }}
+                      >
+                        <ShieldCheckIcon size={14} color="var(--primary)" />
+                        {feat}
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="/contact"
+                    className="btn-primary"
+                    style={{ alignSelf: "flex-start", padding: "10px 22px", fontSize: "0.88rem" }}
+                  >
+                    <span>Enquire About This Product</span>
+                    <ArrowRightIcon size={16} color="#ffffff" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -735,6 +913,13 @@ export default function ProductPage() {
           </div>
         </section>
       )}
+
+      {/* Clickable Photo Styles */}
+      <style jsx global>{`
+        .clickable-photo:hover img {
+          transform: scale(1.04);
+        }
+      `}</style>
     </div>
   );
 }
