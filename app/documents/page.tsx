@@ -17,35 +17,35 @@ export default function DocumentsPage() {
         {
           name: "Certificate of Incorporation",
           description:
-            "Official certificate issued by the Ministry of Corporate Affairs (MCA), Government of India, establishing the corporate registration of IQ & Innovation.",
+            "Official certificate issued by the Ministry of Corporate Affairs (MCA), establishing the corporate registration of IQ & INNOVATION.",
           type: "Official PDF",
-          issuer: "Ministry of Corporate Affairs, Govt. of India",
+          issuer: "Ministry of Corporate Affairs",
         },
         {
           name: "GST Registration Certificate",
           description:
             "Goods and Services Tax registration identifier issued by the Central Board of Indirect Taxes and Customs (CBIC).",
           type: "Official PDF",
-          issuer: "CBIC, Govt. of India",
+          issuer: "CBIC",
         },
       ],
     },
     {
-      category: "Startup India & MSME Recognition",
+      category: "Startup Registration & MSME Status",
       icon: <RocketIcon size={20} color="#ffffff" />,
       docs: [
         {
-          name: "DPIIT Startup Recognition Certificate",
+          name: "Startup India Registration Certificate",
           description:
-            "Recognition granted by the Department for Promotion of Industry and Internal Trade under the national Startup India initiative.",
-          type: "Govt. Certificate",
-          issuer: "DPIIT, Govt. of India",
+            "Official registration certificate issued under the national Startup India portal.",
+          type: "Registration Doc",
+          issuer: "Startup India",
         },
         {
           name: "Udyam MSME Registration",
           description:
             "Micro, Small and Medium Enterprises national registry certificate validating technology manufacturing status.",
-          type: "Govt. Certificate",
+          type: "MSME Doc",
           issuer: "Ministry of MSME",
         },
       ],
@@ -62,9 +62,9 @@ export default function DocumentsPage() {
           issuer: "Indian Patent Office",
         },
         {
-          name: "Trademark Filing — IQ & Innovation",
+          name: "Trademark Filing — IQ & INNOVATION",
           description:
-            "Formal trademark registration for the IQ & Innovation brand identity and technology series names.",
+            "Formal trademark registration for the IQ & INNOVATION brand identity and technology series names.",
           type: "IP Filing",
           issuer: "Trade Marks Registry India",
         },
@@ -148,7 +148,7 @@ export default function DocumentsPage() {
               margin: "16px auto 0",
             }}
           >
-            Verified documentation verifying government recognition, corporate compliance, and intellectual property.
+            Official documentation verifying corporate registration, statutory compliance, and intellectual property.
           </p>
         </div>
       </section>
@@ -191,7 +191,7 @@ export default function DocumentsPage() {
                 color: "var(--foreground)",
               }}
             >
-              Government of India Aligned &amp; Fully Compliant
+              Formally Registered &amp; Regulatory Compliant
             </p>
             <p
               style={{
@@ -200,7 +200,7 @@ export default function DocumentsPage() {
                 marginTop: 2,
               }}
             >
-              All listed certificates, patents, and statutory clearances are issued by recognized statutory bodies.
+              All listed certificates, patents, and statutory clearances are verified and maintained in full regulatory compliance.
             </p>
           </div>
         </div>

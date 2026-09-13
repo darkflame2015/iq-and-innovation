@@ -59,22 +59,25 @@ export default function Navbar() {
           }}
         >
           <div
+            className="nav-logo-box"
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
+              width: 52,
+              height: 38,
+              borderRadius: 8,
               overflow: "hidden",
               border: "1.5px solid var(--border)",
               position: "relative",
               flexShrink: 0,
+              background: "#ffffff",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
             }}
           >
             <Image
               src="/logo.png"
-              alt="IQ & Innovation"
+              alt="IQ & INNOVATION"
               fill
-              style={{ objectFit: "contain" }}
-              sizes="40px"
+              style={{ objectFit: "contain", padding: "1px" }}
+              sizes="(max-width: 768px) 46px, 52px"
               priority
             />
           </div>
@@ -83,23 +86,23 @@ export default function Navbar() {
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontWeight: 700,
-                fontSize: "1.1rem",
-                letterSpacing: "-0.02em",
-                lineHeight: 1.1,
+                fontSize: "1.12rem",
+                letterSpacing: "0.01em",
+                lineHeight: 1.15,
               }}
             >
-              IQ &amp; Innovation
+              IQ &amp; INNOVATION
             </span>
             <span
               style={{
-                fontSize: "0.68rem",
+                fontSize: "0.66rem",
                 color: "var(--primary)",
-                fontWeight: 600,
-                letterSpacing: "0.06em",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
                 textTransform: "uppercase",
               }}
             >
-              Govt-Aligned Startup
+              Robotics &amp; Automation
             </span>
           </div>
         </Link>
@@ -248,6 +251,12 @@ export default function Navbar() {
             display: flex !important;
             align-items: center;
             justify-content: center;
+          }
+        }
+        @media (max-width: 480px) {
+          .nav-logo-box {
+            width: 44px !important;
+            height: 32px !important;
           }
         }
       `}</style>

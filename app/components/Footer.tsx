@@ -26,16 +26,17 @@ export default function Footer() {
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
             <div
               style={{
-                width: 32,
+                width: 44,
                 height: 32,
-                borderRadius: 8,
+                borderRadius: 6,
                 overflow: "hidden",
                 position: "relative",
                 background: "white",
-                padding: 2,
+                padding: "2px 4px",
+                flexShrink: 0,
               }}
             >
-              <Image src="/logo.png" alt="IQ & Innovation" fill style={{ objectFit: "contain" }} sizes="32px" />
+              <Image src="/logo.png" alt="IQ & INNOVATION" fill style={{ objectFit: "contain" }} sizes="44px" />
             </div>
             <h4
               style={{
@@ -43,14 +44,14 @@ export default function Footer() {
                 color: "white",
                 fontSize: "1.15rem",
                 fontWeight: 700,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0.01em",
               }}
             >
-              IQ &amp; Innovation
+              IQ &amp; INNOVATION
             </h4>
           </div>
           <p style={{ fontSize: "0.86rem", lineHeight: 1.7, color: "rgba(255,255,255,0.65)" }}>
-            An Indian Government-aligned startup engineering intelligent automation, robotics, and next-generation IoT telemetry systems.
+            An Indian deep-tech startup engineering intelligent automation, robotics, and next-generation IoT telemetry systems.
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 16 }}>
             <IndiaFlagIcon size={20} />
@@ -163,7 +164,7 @@ export default function Footer() {
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <ShieldCheckIcon size={16} color="var(--primary-light)" />
-              <span>DPIIT &amp; MSME Recognized</span>
+              <span>Hardware &amp; IoT Innovation</span>
             </div>
           </div>
         </div>
@@ -184,9 +185,9 @@ export default function Footer() {
           fontSize: "0.82rem",
         }}
       >
-        <span>&copy; {new Date().getFullYear()} IQ &amp; Innovation. All rights reserved.</span>
+        <span>&copy; {new Date().getFullYear()} IQ &amp; INNOVATION. All rights reserved.</span>
         <span style={{ color: "rgba(255,255,255,0.5)" }}>
-          Indigenous Innovation for India
+          Indigenous Robotics &amp; Automation
         </span>
       </div>
     </footer>

@@ -477,7 +477,7 @@ export default function ContactPage() {
                   { label: "General Query", time: "24 Hours" },
                   { label: "Price Quote", time: "2–3 Days" },
                   { label: "Tech Support", time: "48 Hours" },
-                  { label: "Govt. Tender", time: "Priority" },
+                  { label: "Custom Solution", time: "Priority" },
                 ].map((item) => (
                   <div
                     key={item.label}

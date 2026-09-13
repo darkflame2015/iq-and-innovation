@@ -14,9 +14,9 @@ export default function AchievementsPage() {
   const achievements = [
     {
       icon: <TrophyIcon size={28} color="var(--primary)" />,
-      title: "National Innovation Recognition",
+      title: "Smart Robotics Recognition",
       description:
-        "Recognized by Government of India innovation initiatives for pioneering contributions in indigenous smart robotics and public utility automation.",
+        "Recognized across premier innovation forums for pioneering contributions in indigenous smart robotics, AI vision, and utility automation.",
     },
     {
       icon: <MedalIcon size={28} color="var(--accent)" />,
@@ -26,9 +26,9 @@ export default function AchievementsPage() {
     },
     {
       icon: <RocketIcon size={28} color="var(--primary)" />,
-      title: "Startup India / DPIIT Alignment",
+      title: "Startup India Registration",
       description:
-        "Officially recognized and registered under the Startup India initiative by DPIIT with priority government procurement privileges.",
+        "Formally registered deep-tech startup focused on indigenous hardware development, smart grid telemetry, and automated robotics.",
     },
     {
       icon: <PatentIcon size={28} color="var(--accent)" />,
@@ -67,7 +67,7 @@ export default function AchievementsPage() {
       name: "Dr. Anil Sharma",
       designation: "Director, Municipal Smart Grid Division",
       review:
-        "IQ & Innovation's smart metering platform demonstrated remarkable precision and telemetry uptime in our pilot evaluations. A breakthrough for municipal digitization.",
+        "IQ & INNOVATION's smart metering platform demonstrated remarkable precision and telemetry uptime in our pilot evaluations. A breakthrough for municipal digitization.",
       rating: 5,
     },
     {
@@ -88,7 +88,7 @@ export default function AchievementsPage() {
 
   const contracts = [
     {
-      partner: "Smart City Mission — Pilot Project",
+      partner: "Smart Utility Pilot Initiative",
       type: "Pilot Deployment",
       description:
         "Smart meter deployment pilot across residential and commercial sub-grids with centralized telemetry monitoring.",
@@ -102,11 +102,11 @@ export default function AchievementsPage() {
       status: "Active",
     },
     {
-      partner: "State Municipal IT Board",
-      type: "Government Contract",
+      partner: "Regional Utility & Water Management",
+      type: "Pilot Deployment",
       description:
         "Implementation of autonomous water-body quality monitoring stations using the ARGUS aquatic robot series.",
-      status: "Awarded",
+      status: "In Progress",
     },
   ];
 
@@ -146,7 +146,7 @@ export default function AchievementsPage() {
               margin: "16px auto 0",
             }}
           >
-            National recognitions, alumni excellence, client endorsements, and mission-critical government partnerships.
+            Technical recognitions, alumni excellence, client endorsements, and active deployment pilots.
           </p>
         </div>
       </section>

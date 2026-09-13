@@ -123,7 +123,7 @@ export default function ProductPage() {
         <div style={{ maxWidth: 840, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <div className="badge animate-fade-in" style={{ display: "inline-flex", margin: "0 auto" }}>
             <IndiaFlagIcon size={18} />
-            <span>Government-Aligned Innovation</span>
+            <span>Autonomous &amp; Smart Systems</span>
           </div>
           <h1
             className="animate-fade-in-up"
@@ -496,8 +496,8 @@ export default function ProductPage() {
                 {[
                   { label: "Series", value: series.name, icon: <SparklesIcon size={16} color="var(--primary)" /> },
                   { label: "Origin", value: "Make in India", icon: <IndiaFlagIcon size={16} /> },
-                  { label: "Standard", value: "Govt. Compliant", icon: <ShieldCheckIcon size={16} color="var(--primary)" /> },
-                  { label: "Deployment", value: "Enterprise / Gov", icon: <BuildingIcon size={16} color="var(--accent)" /> },
+                  { label: "Standard", value: "Industrial Grade", icon: <ShieldCheckIcon size={16} color="var(--primary)" /> },
+                  { label: "Deployment", value: "Commercial & Utility", icon: <BuildingIcon size={16} color="var(--accent)" /> },
                 ].map((item) => (
                   <div
                     key={item.label}

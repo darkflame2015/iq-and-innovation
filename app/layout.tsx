@@ -17,11 +17,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "IQ & Innovation | Intelligent Automation & Robotics",
+  title: "IQ & INNOVATION | Intelligent Automation & Robotics",
   description:
-    "IQ & Innovation — An Indian Government-aligned startup pioneering intelligent automation, robotics, and smart solutions through the ARGUS and ASPER product series.",
+    "IQ & INNOVATION — An Indian deep-tech startup pioneering intelligent automation, robotics, and smart IoT solutions through the ARGUS and ASPER product series.",
   keywords:
-    "IQ Innovation, robotics, smart meter, drone, automation, Indian startup, ARGUS, ASPER",
+    "IQ & INNOVATION, robotics, smart meter, drone, automation, Indian startup, ARGUS, ASPER",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

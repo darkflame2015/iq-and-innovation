@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #f8fffe; border-radius: 12px;">
         <div style="background: linear-gradient(135deg, #0e7c6b 0%, #1a5fa8 100%); padding: 24px 32px; border-radius: 12px 12px 0 0;">
           <h1 style="color: white; margin: 0; font-size: 20px;">📬 New Contact Inquiry</h1>
-          <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0; font-size: 14px;">IQ &amp; Innovation Website</p>
+          <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0; font-size: 14px;">IQ &amp; INNOVATION Website</p>
         </div>
         <div style="background: white; padding: 28px 32px; border: 1px solid #c8e6e0; border-top: none; border-radius: 0 0 12px 12px;">
           <table style="width: 100%; border-collapse: collapse;">
@@ -43,16 +43,16 @@ export async function POST(req: NextRequest) {
             <p style="color: #0a1a2f; font-size: 14px; line-height: 1.7; margin: 0; white-space: pre-wrap;">${message}</p>
           </div>
           <p style="margin-top: 24px; font-size: 12px; color: #7a9aad; text-align: center;">
-            This message was sent from the IQ &amp; Innovation website contact form.
+            This message was sent from the IQ &amp; INNOVATION website contact form.
           </p>
         </div>
       </div>
     `;
 
     await resend.emails.send({
-      from: "IQ & Innovation <onboarding@resend.dev>",
+      from: "IQ & INNOVATION <onboarding@resend.dev>",
       to: ["punarbosupanja@gmail.com"],
-      subject: `[IQ & Innovation] ${subject}`,
+      subject: `[IQ & INNOVATION] ${subject}`,
       html: htmlContent,
       replyTo: email,
     });

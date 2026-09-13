@@ -8,7 +8,7 @@ export default function FoundersPage() {
       badge: "Founder",
       avatar: "PP",
       color: "var(--primary)",
-      bio: "Visionary entrepreneur and technologist driving IQ & Innovation's mission to build intelligent, government-aligned automation solutions for India's digital infrastructure. Punarbosu spearheads the core product architecture, R&D strategy, and national technology partnerships.",
+      bio: "Visionary entrepreneur and technologist driving IQ & INNOVATION's mission to build intelligent, high-impact automation and robotics solutions for modern digital infrastructure. Punarbosu spearheads the core product architecture, R&D strategy, and technology partnerships.",
       expertise: ["Robotics Engineering", "IoT Systems", "Product Strategy", "Venture Leadership"],
     },
     {
