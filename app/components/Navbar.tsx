@@ -47,36 +47,63 @@ export default function Navbar() {
           height: 68,
         }}
       >
-        {/* Brand Logo */}
+        {/* Brand Logo & Name */}
         <Link
           href="/product"
           style={{
-            display: "inline-flex",
+            display: "flex",
             alignItems: "center",
+            gap: 12,
             textDecoration: "none",
-            padding: "2px 0",
+            color: "var(--foreground)",
           }}
-          aria-label="IQ & INNOVATION"
         >
           <div
-            className="nav-brand-logo"
+            className="nav-logo-box"
             style={{
+              width: 52,
+              height: 38,
+              borderRadius: 8,
+              overflow: "hidden",
+              border: "1.5px solid var(--border)",
               position: "relative",
-              height: 50,
-              width: 70,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              flexShrink: 0,
+              background: "#ffffff",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
             }}
           >
             <Image
               src="/logo.png"
               alt="IQ & INNOVATION"
               fill
-              style={{ objectFit: "contain" }}
-              sizes="(max-width: 768px) 58px, 70px"
+              style={{ objectFit: "contain", padding: "1px" }}
+              sizes="(max-width: 768px) 46px, 52px"
               priority
             />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontWeight: 700,
+                fontSize: "1.12rem",
+                letterSpacing: "0.01em",
+                lineHeight: 1.15,
+              }}
+            >
+              IQ &amp; INNOVATION
+            </span>
+            <span
+              style={{
+                fontSize: "0.66rem",
+                color: "var(--primary)",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              Robotics &amp; Automation
+            </span>
           </div>
         </Link>
 
@@ -216,12 +243,6 @@ export default function Navbar() {
       )}
 
       <style jsx global>{`
-        .nav-brand-logo {
-          transition: transform 0.2s ease;
-        }
-        .nav-brand-logo:hover {
-          transform: scale(1.04);
-        }
         @media (max-width: 820px) {
           .nav-desktop {
             display: none !important;
@@ -233,9 +254,9 @@ export default function Navbar() {
           }
         }
         @media (max-width: 480px) {
-          .nav-brand-logo {
-            width: 58px !important;
-            height: 42px !important;
+          .nav-logo-box {
+            width: 44px !important;
+            height: 32px !important;
           }
         }
       `}</style>
