@@ -8,7 +8,7 @@ import { ArrowRightIcon } from "./Icons";
 
 const navLinks = [
   { href: "/product", label: "Products" },
-  { href: "/founders", label: "Founders" },
+  { href: "/founders", label: "Members" },
   { href: "/achievements", label: "Achievements" },
   { href: "/documents", label: "Documents" },
   { href: "/contact", label: "Contact" },
