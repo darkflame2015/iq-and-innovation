@@ -23,33 +23,39 @@ export default function Footer() {
         }}
       >
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+          <Link
+            href="/product"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              marginBottom: 16,
+              textDecoration: "none",
+            }}
+            aria-label="IQ & INNOVATION"
+          >
             <div
               style={{
-                width: 44,
-                height: 32,
-                borderRadius: 6,
-                overflow: "hidden",
                 position: "relative",
-                background: "white",
-                padding: "2px 4px",
-                flexShrink: 0,
+                height: 54,
+                width: 76,
+                background: "rgba(255, 255, 255, 0.96)",
+                borderRadius: 10,
+                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
               }}
             >
-              <Image src="/logo.png" alt="IQ & INNOVATION" fill style={{ objectFit: "contain" }} sizes="44px" />
+              <Image
+                src="/logo.png"
+                alt="IQ & INNOVATION"
+                fill
+                style={{ objectFit: "contain", padding: "5px" }}
+                sizes="76px"
+              />
             </div>
-            <h4
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                color: "white",
-                fontSize: "1.15rem",
-                fontWeight: 700,
-                letterSpacing: "0.01em",
-              }}
-            >
-              IQ &amp; INNOVATION
-            </h4>
-          </div>
+          </Link>
           <p style={{ fontSize: "0.86rem", lineHeight: 1.7, color: "rgba(255,255,255,0.65)" }}>
             An Indian deep-tech startup engineering intelligent automation, robotics, and next-generation IoT telemetry systems.
           </p>
