@@ -81,29 +81,6 @@ export default function AchievementsPage() {
     { src: "/asper-exposure-3.jpeg", caption: "Scientific Panel & Technical Discussion" },
   ];
 
-  const reviews = [
-    {
-      name: "Dr. Anil Sharma",
-      designation: "Director, Municipal Smart Grid Division",
-      review:
-        "IQ & INNOVATION's smart metering platform demonstrated remarkable precision and telemetry uptime in our pilot evaluations. A breakthrough for municipal digitization.",
-      rating: 5,
-    },
-    {
-      name: "Prof. Meera Nair",
-      designation: "Head of Robotics, IIT Hub",
-      review:
-        "The engineering rigor displayed in the ARGUS drone and ground robotic platforms is truly commendable. High precision, robust build, and indigenous innovation.",
-      rating: 5,
-    },
-    {
-      name: "Rajesh Kumar",
-      designation: "CTO, AgroTech Systems",
-      review:
-        "The ASPER AgriBot multispectral scanning capabilities and automated mapping have exceeded our expectations for localized crop health monitoring.",
-      rating: 5,
-    },
-  ];
 
   const contracts = [
     {
@@ -403,7 +380,7 @@ export default function AchievementsPage() {
                       }}
                     >
                       <PlayCircleIcon size={16} color="#f59e0b" />
-                      <span>Award Ceremony &amp; Demo Video</span>
+                      <span>Award Ceremony &amp; Video</span>
                     </div>
                     <video
                       controls
@@ -849,76 +826,6 @@ export default function AchievementsPage() {
           </div>
         </div>
 
-        {/* ═══ Section 2: Reviews & Endorsements ═══ */}
-        <div style={{ marginBottom: 56 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 10,
-                background: "var(--primary)",
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "2px solid var(--foreground)",
-                boxShadow: "var(--shadow-brutal-sm)",
-              }}
-            >
-              <StarIcon size={20} color="#ffffff" fill="#ffffff" />
-            </div>
-            <h2 style={{ fontSize: "clamp(1.25rem, 3.5vw, 1.6rem)", fontWeight: 700 }}>
-              Endorsements &amp; Reviews
-            </h2>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
-              gap: 20,
-            }}
-          >
-            {reviews.map((r, i) => (
-              <div
-                key={r.name}
-                className={`card-glass animate-fade-in-up delay-${(i + 1) * 100}`}
-                style={{ padding: "26px", display: "flex", flexDirection: "column" }}
-              >
-                <div style={{ display: "flex", gap: 4, marginBottom: 14 }}>
-                  {[...Array(r.rating)].map((_, idx) => (
-                    <StarIcon key={idx} size={18} color="#FF9933" fill="#FF9933" />
-                  ))}
-                </div>
-                <p
-                  style={{
-                    fontSize: "0.9rem",
-                    lineHeight: 1.7,
-                    color: "var(--text-secondary)",
-                    fontStyle: "italic",
-                    marginBottom: 20,
-                    flex: 1,
-                  }}
-                >
-                  &ldquo;{r.review}&rdquo;
-                </p>
-                <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
-                  <p style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--foreground)" }}>{r.name}</p>
-                  <p
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "var(--text-muted)",
-                      marginTop: 2,
-                    }}
-                  >
-                    {r.designation}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* ═══ Section 3: Contracts & Pilots ═══ */}
         <div>

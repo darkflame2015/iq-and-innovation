@@ -433,11 +433,11 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p style={{ fontWeight: 700, color: "var(--foreground)", fontSize: "0.86rem" }}>
-                      Headquarters &amp; Operations
+                      Operating Location
                     </p>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                       <IndiaFlagIcon size={16} />
-                      <span>India</span>
+                      <span>Smart Work Godrej Genesis</span>
                     </div>
                   </div>
                 </div>
