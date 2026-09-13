@@ -271,6 +271,175 @@ export default function ProductPage() {
         </section>
       )}
 
+      {/* Other Products Section — shown on main products page only */}
+      {!selectedSeries && (
+        <section className="section-wrapper" style={{ paddingTop: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                background: "var(--accent)",
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "2px solid var(--foreground)",
+                boxShadow: "var(--shadow-brutal-sm)",
+              }}
+            >
+              <SparklesIcon size={20} color="#ffffff" />
+            </div>
+            <div>
+              <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 1.75rem)", fontWeight: 700, lineHeight: 1.2 }}>
+                Other Products
+              </h2>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                Standalone innovations beyond the ARGUS &amp; ASPER series
+              </p>
+            </div>
+          </div>
+
+          <div
+            className="card-brutal animate-fade-in-up delay-200"
+            style={{
+              padding: 0,
+              overflow: "hidden",
+              maxWidth: 900,
+            }}
+          >
+            <div style={{ height: 5, background: "linear-gradient(90deg, #7c3aed, #1a5fa8, #0e7c6b)" }} />
+            <div
+              style={{
+                display: "flex",
+                gap: 0,
+                flexWrap: "wrap",
+              }}
+            >
+              {/* Radio Station Image */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: 360,
+                  minHeight: 280,
+                  flex: "1 1 300px",
+                  background: "var(--surface-alt)",
+                }}
+              >
+                <Image
+                  src="/radio-station.jpeg"
+                  alt="IQ & INNOVATION Radio Station"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 360px"
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    background: "#7c3aed",
+                    color: "white",
+                    padding: "5px 12px",
+                    borderRadius: 8,
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    letterSpacing: "0.04em",
+                    border: "1.5px solid var(--foreground)",
+                    boxShadow: "2px 2px 0px var(--foreground)",
+                  }}
+                >
+                  STANDALONE PRODUCT
+                </span>
+              </div>
+
+              {/* Radio Station Details */}
+              <div style={{ flex: "1 1 320px", padding: "28px 26px", display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <div className="badge" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>
+                    <IndiaFlagIcon size={14} />
+                    <span>Make in India</span>
+                  </div>
+                </div>
+
+                <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 6 }}>
+                  IQ Radio Station
+                </h3>
+                <p
+                  style={{
+                    color: "var(--primary)",
+                    fontWeight: 600,
+                    fontSize: "0.85rem",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    marginBottom: 14,
+                  }}
+                >
+                  Low-Cost Community Broadcasting System
+                </p>
+
+                <p
+                  style={{
+                    color: "var(--text-secondary)",
+                    fontSize: "0.9rem",
+                    lineHeight: 1.7,
+                    marginBottom: 20,
+                  }}
+                >
+                  A fully indigenous, low-cost FM radio station designed and built in-house by the IQ &amp; INNOVATION team. Engineered for community broadcasting, local emergency alerts, educational programming, and rural connectivity — bridging the digital divide with analog reliability.
+                </p>
+
+                {/* Key Features */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                    gap: 8,
+                    marginBottom: 22,
+                  }}
+                >
+                  {[
+                    "Custom RF Transmitter",
+                    "Software-Defined Audio",
+                    "Low Power Consumption",
+                    "Portable & Modular",
+                    "Community Ready",
+                    "Built From Scratch",
+                  ].map((feat) => (
+                    <div
+                      key={feat}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                        color: "var(--text-secondary)",
+                        fontFamily: "'Space Grotesk', sans-serif",
+                      }}
+                    >
+                      <ShieldCheckIcon size={14} color="var(--primary)" />
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="btn-primary"
+                  style={{ alignSelf: "flex-start", padding: "10px 22px", fontSize: "0.88rem" }}
+                >
+                  <span>Enquire About This Product</span>
+                  <ArrowRightIcon size={16} color="#ffffff" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Series Product Cards */}
       {selectedSeries && series && !selectedProduct && (
         <section className="section-wrapper" style={{ paddingTop: 10 }}>
