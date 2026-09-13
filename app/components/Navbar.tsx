@@ -44,7 +44,7 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 68,
+          height: 76,
         }}
       >
         {/* Brand Logo & Name */}
@@ -53,7 +53,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 12,
+            gap: 14,
             textDecoration: "none",
             color: "var(--foreground)",
           }}
@@ -61,23 +61,27 @@ export default function Navbar() {
           <div
             className="nav-logo-box"
             style={{
-              width: 52,
-              height: 38,
-              borderRadius: 8,
+              width: 82,
+              height: 56,
+              borderRadius: 10,
               overflow: "hidden",
               border: "1.5px solid var(--border)",
               position: "relative",
               flexShrink: 0,
               background: "#ffffff",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 2,
             }}
           >
             <Image
               src="/logo.png"
               alt="IQ & INNOVATION"
               fill
-              style={{ objectFit: "contain", padding: "1px" }}
-              sizes="(max-width: 768px) 46px, 52px"
+              style={{ objectFit: "contain", padding: "2px" }}
+              sizes="(max-width: 768px) 64px, 82px"
               priority
             />
           </div>
@@ -86,7 +90,7 @@ export default function Navbar() {
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontWeight: 700,
-                fontSize: "1.12rem",
+                fontSize: "1.18rem",
                 letterSpacing: "0.01em",
                 lineHeight: 1.15,
               }}
@@ -95,7 +99,7 @@ export default function Navbar() {
             </span>
             <span
               style={{
-                fontSize: "0.66rem",
+                fontSize: "0.7rem",
                 color: "var(--primary)",
                 fontWeight: 700,
                 letterSpacing: "0.08em",
@@ -255,8 +259,8 @@ export default function Navbar() {
         }
         @media (max-width: 480px) {
           .nav-logo-box {
-            width: 44px !important;
-            height: 32px !important;
+            width: 64px !important;
+            height: 44px !important;
           }
         }
       `}</style>

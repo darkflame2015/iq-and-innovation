@@ -23,26 +23,27 @@ export default function Footer() {
         }}
       >
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
             <div
               style={{
-                width: 44,
-                height: 32,
-                borderRadius: 6,
+                width: 72,
+                height: 50,
+                borderRadius: 8,
                 overflow: "hidden",
                 position: "relative",
                 background: "white",
                 padding: "2px 4px",
                 flexShrink: 0,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
               }}
             >
-              <Image src="/logo.png" alt="IQ & INNOVATION" fill style={{ objectFit: "contain" }} sizes="44px" />
+              <Image src="/logo.png" alt="IQ & INNOVATION" fill style={{ objectFit: "contain" }} sizes="72px" />
             </div>
             <h4
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 color: "white",
-                fontSize: "1.15rem",
+                fontSize: "1.2rem",
                 fontWeight: 700,
                 letterSpacing: "0.01em",
               }}
