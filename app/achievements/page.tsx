@@ -1,3 +1,7 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
 import {
   TrophyIcon,
   MedalIcon,
@@ -8,40 +12,47 @@ import {
   ClipboardIcon,
   ShieldCheckIcon,
   SparklesIcon,
+  FileTextIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
 } from "../components/Icons";
 
+/* ─── Inline Special Icons ─── */
+function GlobeIcon({ size = 20, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
+function DownloadIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function PlayCircleIcon({ size = 20, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="10 8 16 12 10 16 10 8" fill={color} />
+    </svg>
+  );
+}
+
 export default function AchievementsPage() {
-  const achievements = [
-    {
-      icon: <TrophyIcon size={28} color="var(--primary)" />,
-      title: "Smart Robotics Recognition",
-      description:
-        "Recognized across premier innovation forums for pioneering contributions in indigenous smart robotics, AI vision, and utility automation.",
-    },
-    {
-      icon: <MedalIcon size={28} color="var(--accent)" />,
-      title: "Smart India Hackathon — Top Honors",
-      description:
-        "Awarded top honors at SIH for developing an autonomous water quality monitoring robotic solution — the precursor to ARGUS AquaBot.",
-    },
-    {
-      icon: <RocketIcon size={28} color="var(--primary)" />,
-      title: "Startup India Registration",
-      description:
-        "Formally registered deep-tech startup focused on indigenous hardware development, smart grid telemetry, and automated robotics.",
-    },
-    {
-      icon: <PatentIcon size={28} color="var(--accent)" />,
-      title: "Patent Filed — Smart Energy Telemetry",
-      description:
-        "Intellectual property filed for proprietary tamper-resistant energy analytics and telemetry algorithms integrated into ARGUS Smart Meter.",
-    },
-    {
-      icon: <EducationIcon size={28} color="var(--primary)" />,
-      title: "Incubated at Premier Tech Hub",
-      description:
-        "Incubated at a premier Indian Institute of Technology (IIT) ecosystem with continuous R&D lab access and high-precision testing facilities.",
-    },
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const conclaveImages = [
+    { src: "/asper-exposure-1.jpeg", caption: "CSIR Conclave Presentation" },
+    { src: "/asper-exposure-2.jpeg", caption: "Live Hardware Demonstration" },
+    { src: "/asper-exposure-3.jpeg", caption: "Scientific Panel Discussion" },
   ];
 
   const alumnis = [
@@ -112,7 +123,7 @@ export default function AchievementsPage() {
 
   return (
     <div style={{ minHeight: "80vh", width: "100%" }}>
-      {/* Hero */}
+      {/* ═══ Hero ═══ */}
       <section
         className="dot-pattern hero-section"
         style={{
@@ -146,19 +157,19 @@ export default function AchievementsPage() {
               margin: "16px auto 0",
             }}
           >
-            Technical recognitions, alumni excellence, client endorsements, and active deployment pilots.
+            International recognitions, competitive victories, scientific conclaves, and industry endorsements celebrating our technological breakthroughs.
           </p>
         </div>
       </section>
 
       <section className="section-wrapper" style={{ paddingTop: 10 }}>
-        {/* Section 1: Awards & Achievements */}
-        <div style={{ marginBottom: 56 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+        {/* ═══ Top Key Milestones Showcase ═══ */}
+        <div style={{ marginBottom: 64 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
             <div
               style={{
-                width: 38,
-                height: 38,
+                width: 40,
+                height: 40,
                 borderRadius: 10,
                 background: "var(--primary)",
                 color: "white",
@@ -169,60 +180,490 @@ export default function AchievementsPage() {
                 boxShadow: "var(--shadow-brutal-sm)",
               }}
             >
-              <TrophyIcon size={20} color="#ffffff" />
+              <TrophyIcon size={22} color="#ffffff" />
             </div>
-            <h2 style={{ fontSize: "clamp(1.25rem, 3.5vw, 1.6rem)", fontWeight: 700 }}>
-              Awards &amp; Recognitions
-            </h2>
+            <div>
+              <h2 style={{ fontSize: "clamp(1.3rem, 3.5vw, 1.75rem)", fontWeight: 700, lineHeight: 1.2 }}>
+                Major Honors &amp; Competitive Victories
+              </h2>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                Key recognitions won on global and national stages
+              </p>
+            </div>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
-              gap: 20,
-            }}
-          >
-            {achievements.map((a, i) => (
-              <div
-                key={a.title}
-                className={`card-bento animate-fade-in-up delay-${(i + 1) * 100}`}
-                style={{ padding: "24px", display: "flex", flexDirection: "column" }}
-              >
+          <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+            {/* 1. Bengal E-Summit 2026 - 1st Prize */}
+            <div
+              className="card-brutal animate-fade-in-up"
+              style={{
+                padding: 0,
+                overflow: "hidden",
+                background: "var(--surface)",
+              }}
+            >
+              <div style={{ height: 6, background: "linear-gradient(90deg, #d97706, #f59e0b)" }} />
+              <div style={{ padding: "28px 24px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                      <span
+                        style={{
+                          background: "#d97706",
+                          color: "#ffffff",
+                          padding: "4px 12px",
+                          borderRadius: 999,
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          border: "1.5px solid var(--foreground)",
+                        }}
+                      >
+                        <TrophyIcon size={14} color="#ffffff" />
+                        1st Prize Champion
+                      </span>
+                      <span className="badge" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>
+                        Product: AsPER
+                      </span>
+                    </div>
+                    <h3 style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", fontWeight: 700 }}>
+                      1st Prize Winner — Bengal E-Summit 2026
+                    </h3>
+                  </div>
+                  <span
+                    style={{
+                      background: "var(--surface-alt)",
+                      border: "1px solid var(--border)",
+                      padding: "6px 14px",
+                      borderRadius: 8,
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      color: "var(--text-secondary)",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                    }}
+                  >
+                    State Innovation Summit 2026
+                  </span>
+                </div>
+
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7, marginBottom: 24, maxWidth: 880 }}>
+                  <strong>AsPER</strong> secured the <strong>1st Prize</strong> at the prestigious <strong>Bengal E-Summit 2026</strong>. Our indigenous robotics and smart automation platform was lauded for its exceptional engineering architecture, real-world utility, and commercial feasibility.
+                </p>
+
+                {/* Media grid: Video + Trophy */}
                 <div
                   style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 12,
-                    background: "var(--surface-alt)",
-                    border: "1.5px solid var(--border)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 16,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+                    gap: 20,
                   }}
                 >
-                  {a.icon}
+                  {/* Video Player */}
+                  <div
+                    style={{
+                      borderRadius: 12,
+                      overflow: "hidden",
+                      border: "2px solid var(--foreground)",
+                      boxShadow: "var(--shadow-brutal-sm)",
+                      background: "#000000",
+                      position: "relative",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: "8px 14px",
+                        background: "var(--foreground)",
+                        color: "#ffffff",
+                        fontSize: "0.78rem",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        fontFamily: "'Space Grotesk', sans-serif",
+                      }}
+                    >
+                      <PlayCircleIcon size={16} color="#f59e0b" />
+                      <span>Award Ceremony &amp; Demo Video</span>
+                    </div>
+                    <video
+                      controls
+                      playsInline
+                      preload="metadata"
+                      style={{
+                        width: "100%",
+                        height: 280,
+                        objectFit: "contain",
+                        backgroundColor: "#000000",
+                      }}
+                    >
+                      <source src="/bengal-e-summit-video.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+
+                  {/* Trophy Photo */}
+                  <div
+                    style={{
+                      borderRadius: 12,
+                      overflow: "hidden",
+                      border: "2px solid var(--foreground)",
+                      boxShadow: "var(--shadow-brutal-sm)",
+                      background: "var(--surface-alt)",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: "8px 14px",
+                        background: "var(--foreground)",
+                        color: "#ffffff",
+                        fontSize: "0.78rem",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        fontFamily: "'Space Grotesk', sans-serif",
+                      }}
+                    >
+                      <TrophyIcon size={16} color="#f59e0b" />
+                      <span>Official Trophy &amp; Accolade</span>
+                    </div>
+                    <div style={{ position: "relative", width: "100%", height: 280 }}>
+                      <Image
+                        src="/bengal-e-summit-trophy.jpeg"
+                        alt="Bengal E-Summit 1st Prize Trophy"
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 500px"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <h3 style={{ fontSize: "1.08rem", fontWeight: 700, marginBottom: 8 }}>
-                  {a.title}
-                </h3>
-                <p
+              </div>
+            </div>
+
+            {/* 2. IEEE YESIST12 Indonesia & 3. MAKAUT Event Grid */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+                gap: 24,
+              }}
+            >
+              {/* IEEE YESIST12 Indonesia Card */}
+              <div
+                className="card-brutal animate-fade-in-up delay-100"
+                style={{
+                  padding: 0,
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  background: "var(--surface)",
+                }}
+              >
+                <div style={{ height: 6, background: "linear-gradient(90deg, #1a5fa8, #38bdf8)" }} />
+                <div style={{ padding: "26px 22px", display: "flex", flexDirection: "column", flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <span
+                      style={{
+                        background: "#1a5fa8",
+                        color: "#ffffff",
+                        padding: "4px 12px",
+                        borderRadius: 999,
+                        fontSize: "0.74rem",
+                        fontWeight: 700,
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        border: "1.5px solid var(--foreground)",
+                      }}
+                    >
+                      <GlobeIcon size={14} color="#ffffff" />
+                      International Selection
+                    </span>
+                    <span className="badge" style={{ fontSize: "0.72rem", padding: "3px 8px" }}>
+                      IEEE YESIST12
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: 8, lineHeight: 1.25 }}>
+                    Selected for IEEE YESIST12 International Finals — Indonesia
+                  </h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: 20, flex: 1 }}>
+                    <strong>AsPER</strong> has been selected for the globally renowned <strong>IEEE YESIST12 (Youth Endeavours for Social Innovation using Sustainable Technology)</strong> International Exposure Competition organized globally from <strong>Indonesia</strong>.
+                  </p>
+
+                  {/* Attached PDF Preview Card */}
+                  <div
+                    style={{
+                      background: "var(--surface-alt)",
+                      border: "1.5px solid var(--border)",
+                      borderRadius: 12,
+                      padding: "16px",
+                      marginBottom: 16,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 12,
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <div
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 8,
+                          background: "#e11d48",
+                          color: "#ffffff",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 700,
+                          fontSize: "0.75rem",
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          flexShrink: 0,
+                          border: "1.5px solid var(--foreground)",
+                          boxShadow: "var(--shadow-brutal-sm)",
+                        }}
+                      >
+                        PDF
+                      </div>
+                      <div>
+                        <p style={{ fontWeight: 700, fontSize: "0.88rem", color: "var(--foreground)" }}>
+                          IEEE Selection Letter
+                        </p>
+                        <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                          Official Global Qualification Document
+                        </p>
+                      </div>
+                    </div>
+
+                    <a
+                      href="/international.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary"
+                      style={{
+                        padding: "8px 16px",
+                        fontSize: "0.8rem",
+                        minHeight: 36,
+                        gap: 6,
+                      }}
+                    >
+                      <DownloadIcon size={14} color="var(--foreground)" />
+                      <span>View PDF</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* MAKAUT & Bhartiya Bhasha Samiti Card */}
+              <div
+                className="card-brutal animate-fade-in-up delay-200"
+                style={{
+                  padding: 0,
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  background: "var(--surface)",
+                }}
+              >
+                <div style={{ height: 6, background: "linear-gradient(90deg, #0e7c6b, #10b981)" }} />
+                <div style={{ padding: "26px 22px", display: "flex", flexDirection: "column", flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <span
+                      style={{
+                        background: "#0e7c6b",
+                        color: "#ffffff",
+                        padding: "4px 12px",
+                        borderRadius: 999,
+                        fontSize: "0.74rem",
+                        fontWeight: 700,
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        border: "1.5px solid var(--foreground)",
+                      }}
+                    >
+                      <MedalIcon size={14} color="#ffffff" />
+                      3rd Position Award
+                    </span>
+                    <span className="badge" style={{ fontSize: "0.72rem", padding: "3px 8px" }}>
+                      Product: ARGUS
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: 8, lineHeight: 1.25 }}>
+                    3rd Position — Bhartiya Bhasha Samiti &amp; MAKAUT Board
+                  </h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: 16 }}>
+                    <strong>ARGUS</strong> emerged as the <strong>3rd Position Winner</strong> in a state innovation event organized by the <strong>Bhartiya Bhasha Samiti</strong> in collaboration with the <strong>MAKAUT Board</strong>, recognized for excellence in hardware and regional language accessibility.
+                  </p>
+
+                  {/* Attached MAKAUT image */}
+                  <div
+                    style={{
+                      borderRadius: 12,
+                      overflow: "hidden",
+                      border: "2px solid var(--foreground)",
+                      boxShadow: "var(--shadow-brutal-sm)",
+                      position: "relative",
+                      width: "100%",
+                      height: 200,
+                      marginTop: "auto",
+                      background: "var(--surface-alt)",
+                    }}
+                  >
+                    <Image
+                      src="/makaut.jpeg"
+                      alt="ARGUS - MAKAUT and Bhartiya Bhasha Samiti 3rd Position"
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 768px) 100vw, 400px"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Bengal Rise Conclave in CSIR Gallery */}
+            <div
+              className="card-brutal animate-fade-in-up delay-300"
+              style={{
+                padding: 0,
+                overflow: "hidden",
+                background: "var(--surface)",
+              }}
+            >
+              <div style={{ height: 6, background: "linear-gradient(90deg, #7c3aed, #a855f7)" }} />
+              <div style={{ padding: "28px 24px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                      <span
+                        style={{
+                          background: "#7c3aed",
+                          color: "#ffffff",
+                          padding: "4px 12px",
+                          borderRadius: 999,
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          border: "1.5px solid var(--foreground)",
+                        }}
+                      >
+                        <SparklesIcon size={14} color="#ffffff" />
+                        Debut Scientific Exposure
+                      </span>
+                      <span className="badge" style={{ fontSize: "0.75rem", padding: "4px 10px" }}>
+                        CSIR Research Hub
+                      </span>
+                    </div>
+                    <h3 style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", fontWeight: 700 }}>
+                      Our First Exposure at BENGAL RISE CONCLAVE in CSIR
+                    </h3>
+                  </div>
+                  <span
+                    style={{
+                      background: "var(--surface-alt)",
+                      border: "1px solid var(--border)",
+                      padding: "6px 14px",
+                      borderRadius: 8,
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      color: "var(--text-secondary)",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                    }}
+                  >
+                    Council of Scientific &amp; Industrial Research
+                  </span>
+                </div>
+
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7, marginBottom: 24, maxWidth: 880 }}>
+                  <strong>AsPER</strong> marked its milestone debut scientific demonstration at the <strong>BENGAL RISE CONCLAVE</strong> hosted at <strong>CSIR</strong>. Our team presented working prototypes directly to premier industrial scientists, academic researchers, and innovation directors.
+                </p>
+
+                {/* 3-Image Showcase */}
+                <div
                   style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "0.86rem",
-                    lineHeight: 1.65,
-                    marginTop: "auto",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+                    gap: 16,
                   }}
                 >
-                  {a.description}
-                </p>
+                  {conclaveImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        border: "2px solid var(--foreground)",
+                        boxShadow: "var(--shadow-brutal-sm)",
+                        background: "var(--surface-alt)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          height: 220,
+                        }}
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.caption}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="(max-width: 768px) 100vw, 300px"
+                        />
+                      </div>
+                      <div
+                        style={{
+                          padding: "10px 14px",
+                          background: "var(--surface)",
+                          borderTop: "1.5px solid var(--border)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--foreground)" }}>
+                          {img.caption}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "0.7rem",
+                            fontWeight: 700,
+                            color: "var(--primary)",
+                            fontFamily: "'Space Grotesk', sans-serif",
+                          }}
+                        >
+                          0{idx + 1} / 03
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
-        {/* Section 2: Notable Alumni */}
+        {/* ═══ Section 2: Notable Alumni ═══ */}
         <div style={{ marginBottom: 56 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div
@@ -309,7 +750,7 @@ export default function AchievementsPage() {
           </div>
         </div>
 
-        {/* Section 3: Reviews */}
+        {/* ═══ Section 3: Reviews & Endorsements ═══ */}
         <div style={{ marginBottom: 56 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div
@@ -380,7 +821,7 @@ export default function AchievementsPage() {
           </div>
         </div>
 
-        {/* Section 4: Contracts */}
+        {/* ═══ Section 4: Contracts & Pilots ═══ */}
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div
