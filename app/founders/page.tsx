@@ -22,12 +22,11 @@ function StarIcon({ size = 14, color = "currentColor" }: { size?: number; color?
 const founder = {
   name: "Punarbosu Panja",
   role: "Founder & CEO",
-  department: "Founder",
   photo: "/punarbosu-panja.jpeg",
   color: "#0e7c6b",
   bio: "The Founder of IQ AND INNOVATION started this initiative as a one-person mission and currently works on the Tech with his team on both Hardware and Software. He spearheads core product architecture, R&D strategy, and technology partnerships.",
   expertise: ["Robotics Engineering", "IoT Systems", "Product Strategy", "Venture Leadership"],
-  institution: "SEC B, IEM",
+
 };
 
 const coFounders = [
@@ -37,7 +36,7 @@ const coFounders = [
     department: "Hardware",
     photo: "/richi-paul.jpeg",
     color: "#d97706",
-    bio: "The Co-Founder of IQ AND INNOVATION and the Core Team Leader for the Hardware Part — specializing in IoT, Electronics, Electrical engineering, and leading hardware prototyping across all active projects.",
+    bio: "The Co-Founder of IQ AND INNOVATION and the Core Team Leader for the Hardware Part specializing in IoT, Electronics, Electrical engineering, and leading hardware prototyping across all active projects.",
     expertise: ["IoT Systems", "Electronics", "Electrical Engineering", "Hardware Prototyping"],
   },
   {
@@ -46,7 +45,7 @@ const coFounders = [
     department: "Software",
     photo: "/shreyasi-samui.jpeg",
     color: "#7c3aed",
-    bio: "The Co-Founder of IQ AND INNOVATION and a Core Member of the Software team — working on Raspberry Pi to build software servers and connection infrastructure for edge computing solutions.",
+    bio: "The Co-Founder of IQ AND INNOVATION and a Core Member of the Software team  working on Raspberry Pi to build software servers and connection infrastructure for edge computing solutions.",
     expertise: ["Raspberry Pi", "Server Architecture", "Edge Computing", "Software Development"],
   },
 ];
@@ -56,10 +55,10 @@ const members = [
     name: "Sagnik Datta",
     role: "Webmaster & Software Engineer",
     department: "Software",
-    photo: null,
+    photo: "/sagnik-datta.jpeg",
     avatar: "SD",
     color: "#1a5fa8",
-    bio: "The Webmaster of IQ AND INNOVATION — manages the website and works on AI/ML Solutions, Blockchain, Full Stack Development, and handles calling & mailing communications.",
+    bio: "The Webmaster of IQ AND INNOVATION manages the website and works on AI/ML Solutions, Blockchain, Full Stack Development, and handles calling & mailing communications.",
     expertise: ["AI/ML", "Blockchain", "Full Stack Dev", "Web Development"],
   },
   {
@@ -68,7 +67,7 @@ const members = [
     department: "Software",
     photo: "/titli-panja.jpeg",
     color: "#0891b2",
-    bio: "Currently works on NVIDIA Jetson Nano for building low-cost servers and connection infrastructure for small industrial farms — bringing AI-powered edge solutions to rural industry.",
+    bio: "Currently works on NVIDIA Jetson Nano for building low-cost servers and connection infrastructure for small industrial farms bringing AI-powered edge solutions to rural industry.",
     expertise: ["NVIDIA Jetson Nano", "Edge Servers", "Industrial IoT", "Embedded Systems"],
   },
   {
@@ -86,7 +85,7 @@ const members = [
     department: "HR",
     photo: "/pritika-bhattacharya.jpeg",
     color: "#e11d48",
-    bio: "Works on managing the whole company — maintaining the work deadlines of every member including the Founder and Co-Founders. Has full authority over operations, oversees sales, and tracks profit and revenue.",
+    bio: "Works on managing the whole company maintaining the work deadlines of every member including the Founder and Co-Founders. Has full authority over operations, oversees sales, and tracks profit and revenue.",
     expertise: ["Operations Management", "HR Leadership", "Sales & Revenue", "Deadline Tracking"],
   },
 ];
@@ -251,25 +250,7 @@ export default function MembersPage() {
                 size={120}
                 borderColor={founder.color}
               />
-              <span
-                style={{
-                  background: founder.color,
-                  color: "white",
-                  padding: "4px 14px",
-                  borderRadius: 999,
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 5,
-                }}
-              >
-                <CrownIcon size={12} color="white" />
-                Founder
-              </span>
+
             </div>
 
             <div style={{ flex: 1, minWidth: 240 }}>
@@ -294,7 +275,6 @@ export default function MembersPage() {
                   fontStyle: "italic",
                 }}
               >
-                {founder.institution}
               </span>
               <p
                 style={{
@@ -372,31 +352,7 @@ export default function MembersPage() {
                     <p style={{ color: person.color, fontSize: "0.82rem", fontWeight: 600, marginTop: 2, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {person.role}
                     </p>
-                    <div style={{ display: "flex", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
-                      <span
-                        style={{
-                          background: person.color,
-                          color: "white",
-                          padding: "2px 10px",
-                          borderRadius: 999,
-                          fontSize: "0.68rem",
-                          fontWeight: 700,
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 4,
-                        }}
-                      >
-                        <StarIcon size={10} color="white" />
-                        Co-Founder
-                      </span>
-                      <span
-                        className="badge"
-                        style={{ fontSize: "0.68rem", padding: "2px 8px", gap: 4 }}
-                      >
-                        {person.department}
-                      </span>
-                    </div>
+
                   </div>
                 </div>
 
@@ -479,13 +435,7 @@ export default function MembersPage() {
                     <p style={{ color: person.color, fontSize: "0.78rem", fontWeight: 600, marginTop: 2, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {person.role}
                     </p>
-                    <span
-                      className="badge"
-                      style={{ fontSize: "0.65rem", padding: "2px 8px", gap: 4, marginTop: 4 }}
-                    >
-                      <ShieldCheckIcon size={10} color="var(--primary)" />
-                      {person.department}
-                    </span>
+
                   </div>
                 </div>
 
@@ -564,19 +514,7 @@ export default function MembersPage() {
                   size={90}
                   borderColor={person.color}
                 />
-                <span
-                  className="badge"
-                  style={{
-                    fontSize: "0.68rem",
-                    padding: "3px 10px",
-                    gap: 4,
-                    borderColor: person.color,
-                    color: person.color,
-                  }}
-                >
-                  <ShieldCheckIcon size={10} color={person.color} />
-                  {person.department}
-                </span>
+
               </div>
               <div style={{ flex: 1, minWidth: 200 }}>
                 <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: 2 }}>
